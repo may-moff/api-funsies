@@ -7,9 +7,9 @@ const SearchApi = () => {
   const [artMaker, setArtMaker] = useState("");
   const [artImage, setArtImage] = useState("");
 
-  const profileData = async () => {
+  const artData = async () => {
     try {
-      // const res = await axios.get("https://randomuser.me/api/");
+    
       const res = await axios.get("https://www.rijksmuseum.nl/api/nl/collection?key=eQKm0Vx6&involvedMaker=Maurice+Leroy");
       setArtTitle(res.data.artObjects[0].title);
       setArtMaker(res.data.artObjects[0].principalOrFirstMaker);
@@ -22,7 +22,7 @@ const SearchApi = () => {
   };
 
   useEffect(() => {
-    profileData();
+    artData();
   }, []);
 
   return (

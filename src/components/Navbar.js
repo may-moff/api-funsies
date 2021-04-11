@@ -7,7 +7,7 @@ function Navbar() {
     <>
       <nav className='navbar'>
         <div className='navbar-container'>
-            <ul>
+            <ul className='navlist'>
             <li className='nav-item'>
               <Link to='/' className='nav-links'>
                 home
@@ -31,7 +31,7 @@ function Navbar() {
               </Link>
             </li>
 
-            <li>
+            <li className='nav-item'>
               <Link
                 to='/checkout'
                 className='nav-links'
