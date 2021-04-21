@@ -3,23 +3,23 @@ import axios from "axios";
 import "./SearchApi.css"
 
 const SearchApi = () => {
-  const [artTitle, setArtTitle] = useState("");
-  const [artMaker, setArtMaker] = useState("");
-  const [artImage, setArtImage] = useState("");
+  const [art, setArt] = useState(null);
 
   const artData = async () => {
     try {
     
       const res = await axios.get("https://www.rijksmuseum.nl/api/nl/collection?key=eQKm0Vx6&involvedMaker=Maurice+Leroy");
-      setArtTitle(res.data.artObjects[0].title);
-      setArtMaker(res.data.artObjects[0].principalOrFirstMaker);
-      setArtImage(res.data.artObjects[0].webImage.url);
+      const artArray = [];
+
+      res.data.artObjects.map((el) => artArray.push([el.webImage.url, el.title, el.principalOrFirstMaker ]));
+      console.log(artArray)
+      setArt(artArray);
 
      
     } catch (error) {
       console.log(error);
     }
-  };
+  }; 
 
   useEffect(() => {
     artData();
@@ -27,12 +27,17 @@ const SearchApi = () => {
 
   return (
     <div>
-    
-      <div className="card">
-        <img src={artImage} style={{ width: "50%" }} />
-        <h1>Artist: {artMaker}</h1>  
-        <p>Title: {artTitle}</p>
-      </div>
+     {art &&
+          art.map((artItem, index) => {
+        
+            return (
+              <div className="card" key={index}>
+              <img src={artItem[0]} style={{ width: "50%" }} alt="" />
+              <h1>Artist: {artItem[2]}</h1>  
+              <p>Title: {artItem[1]}</p>
+              </div>
+            );
+          })}
     </div>
   );
 }
